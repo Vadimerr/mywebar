@@ -7,7 +7,7 @@
 
   <!-- Three.js с CDN -->
   <script src="https://unpkg.com/three@0.163.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.163.0/examples/jsm/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.163.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body style="margin:0; overflow:hidden;">
 
@@ -60,7 +60,7 @@
     // Загрузка модели
     const loader = new THREE.GLTFLoader();
     loader.load(
-      'model.glb',
+      'garderob.glb',
       (gltf) => {
         model = gltf.scene;
         model.scale.set(0.5, 0.5, 0.5); // подгони масштаб под свою модель
@@ -123,4 +123,5 @@
   }
 </script>
 </body>
+
 </html>
