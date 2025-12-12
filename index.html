@@ -38,7 +38,12 @@
 
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
+    camera = new THREE.PerspectiveCamera(
+      70,
+      window.innerWidth / window.innerHeight,
+      0.01,
+      20
+    );
 
     // Свет
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
@@ -60,7 +65,7 @@
     // Загрузка модели
     const loader = new THREE.GLTFLoader();
     loader.load(
-      'garderob.glb',
+      'model.glb',          // если файл называется иначе, поменяй имя тут
       (gltf) => {
         model = gltf.scene;
         model.scale.set(0.5, 0.5, 0.5); // подгони масштаб под свою модель
@@ -71,10 +76,14 @@
       }
     );
 
-    // Запрос AR‑сессии с отслеживанием плоскости
     const sessionInit = { requiredFeatures: ['hit-test'] };
 
     try {
+      if (!navigator.xr || !navigator.xr.requestSession) {
+        alert('Браузер не поддерживает WebXR');
+        return;
+      }
+
       const session = await navigator.xr.requestSession('immersive-ar', sessionInit);
       renderer.xr.setReferenceSpaceType('local');
       await renderer.xr.setSession(session);
@@ -100,7 +109,7 @@
         renderer.render(scene, camera);
       });
     } catch (e) {
-      alert('Этот браузер не поддерживает WebXR AR');
+      alert('Этот девайс не поддерживает AR‑режим в браузере');
       console.error(e);
     }
 
@@ -123,5 +132,4 @@
   }
 </script>
 </body>
-
 </html>
